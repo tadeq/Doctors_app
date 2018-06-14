@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Patients</h1><br>
+    <form action="{% url 'patients:add' %}">
+        <input type="submit" value="Add patient" />
+    </form><br>
+    {% for patient in patients %}
+        <h3><a href="{% url 'patients:details' id_no=patient.id_no %}">{{ patient.lastname }} {{ patient.firstname }} ({{ patient.id_no }})</a></h3>
+    {% endfor %}
+{% endblock %}

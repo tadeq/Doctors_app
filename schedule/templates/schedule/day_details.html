@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{{ day.date }}  from: {{ day.start|time:"H:i" }}  to: {{ day.end|time:"H:i" }}</h2>
+    {% for appointment in appointments %}
+        <p>{{ appointment.fr|time:"H:i" }} - {{ appointment.to|time:"H:i" }}: <a href="{% url 'patients:details' id_no=appointment.patient.id_no %}">{{ appointment.patient.lastname }} {{ appointment.patient.firstname }}</a></p>
+    {% endfor %}
+    <br>
+    <form action="{% url 'schedule:details' slug=day.slug %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Add">
+    </form>
+{% endblock %}

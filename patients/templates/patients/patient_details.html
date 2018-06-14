@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if patient.photo %}
+    <img src="{{ patient.photo.url }}"/>
+    {% endif %}
+    <h1>{{ patient.lastname }} {{ patient.firstname }}</h1>
+    <p>ID: {{ patient.id_no }}</p>
+    <p>Doctor: {{ patient.doctor }}</p>
+    <p>Phone: {{ patient.phone }}</p>
+    <p>Email: {{ patient.email }}</p>
+    <p>History: {{ patient.history }}</p>
+    {% if patient.doctor.username == user.username %}
+    <form action="{% url 'patients:edit' id_no=patient.id_no %}">
+        <input type="submit" value="Edit" />
+    </form>
+    {% endif %}
+{% endblock %}

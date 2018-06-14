@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for day in days %}
+        {% if day.doctor == user %}
+            <a href="{% url 'schedule:details' slug=day.slug %}">{{ day.date }}</a>
+        {% endif %}
+        <br>
+    {% endfor %}
+    <br><br>
+    <form action="{% url 'schedule:list' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Add">
+    </form>
+{% endblock %}

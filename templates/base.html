@@ -1,0 +1,40 @@
+{%load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor's app</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header class="wrapper">
+        <h1><a href="{% url 'homepage' %}"><img src="{% static 'logo.png'%}"/></a></h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li>
+                    <form action="{% url 'accounts:logout'%}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+                    <li><h1><a href="{% url 'patients:list' %}">Patients</a></h1></li>
+                    <li><h1><a href="{% url 'schedule:list' %}">Schedule</a></h1></li>
+                {% else %}
+                    <li><h1>
+                    <a href="{% url 'accounts:login' %}">Login</a><br>
+                    </h1></li>
+                    <li><h1>
+                    <a href="{% url 'accounts:signup' %}">Signup</a>
+                    </h1></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="wrapper">
+        {% block content%}
+        {% endblock %}
+    </div>
+</body>
+</html>
